@@ -1,6 +1,8 @@
 path = 'C:\\computertooldata\\transactions2.csv'
     data = pd.read_csv(path)
     # Parse dates and extract month and year
+    #data['TransactionHour'] = data['transactionDateTime'].dt.hour เผื่อ
+    #data['TransactionYear'] = data['transactionDateTime'].dt.year เผื่อ
     # Parse transactionDateTime column as datetime
     data['transactionDateTime'] = pd.to_datetime(data['transactionDateTime'], errors='coerce')
     data['YearMonth'] = data['transactionDateTime'].dt.to_period('M')
