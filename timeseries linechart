@@ -1,24 +1,20 @@
-import pandas as pd
-import matplotlib.pyplot as plt
+path = 'C:\\computertooldata\\transactions2.csv'
+    data = pd.read_csv(path)
+    # Parse dates and extract month and year
+    # Parse transactionDateTime column as datetime
+    data['transactionDateTime'] = pd.to_datetime(data['transactionDateTime'], errors='coerce')
+    data['YearMonth'] = data['transactionDateTime'].dt.to_period('M')
 
-# Load the dataset
-file_path = "/mnt/data/transactions2.csv"
-data = pd.read_csv(file_path)
+    # Aggregate sales by month using 'transactionAmountUSD' as the sales value
+    monthly_sales = data.groupby('YearMonth')['transactionAmountUSD'].sum().reset_index()
 
-# Parse dates and extract month and year
-data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
-data['YearMonth'] = data['Date'].dt.to_period('M')
-
-# Aggregate sales by month
-monthly_sales = data.groupby('YearMonth')['Sales'].sum().reset_index()
-
-# Plotting monthly sales trends
-plt.figure(figsize=(10, 6))
-plt.plot(monthly_sales['YearMonth'].astype(str), monthly_sales['Sales'], marker='o', linestyle='-')
-plt.title('Monthly Sales Trends')
-plt.xlabel('Month-Year')
-plt.ylabel('Total Sales')
-plt.xticks(rotation=45)
-plt.grid(True)
-plt.tight_layout()
-plt.show()
+    # Plotting monthly sales trends
+    plt.figure(figsize=(10, 6))
+    plt.plot(monthly_sales['YearMonth'].astype(str), monthly_sales['transactionAmountUSD'], marker='o', linestyle='-')
+    plt.title('Monthly Sales Trends')
+    plt.xlabel('Month-Year')
+    plt.ylabel('Total Sales (USD)')
+    plt.xticks(rotation=45)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
