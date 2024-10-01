@@ -3,6 +3,11 @@ path = 'C:\\computertooldata\\transactions2.csv'
     # Parse dates and extract month and year
     #data['TransactionHour'] = data['transactionDateTime'].dt.hour เผื่อ
     #data['TransactionYear'] = data['transactionDateTime'].dt.year เผื่อ
+#เซต2
+    #data['transactionDateTime'] = pd.to_datetime(data['transactionDateTime'], errors='coerce')
+    #data['TransactionMonth'] = data['transactionDateTime'].dt.month
+    #df2 = data.query('TransactionMonth == 2')
+    print(df2['TransactionMonth'])
     # Parse transactionDateTime column as datetime
     data['transactionDateTime'] = pd.to_datetime(data['transactionDateTime'], errors='coerce')
     data['YearMonth'] = data['transactionDateTime'].dt.to_period('M')
